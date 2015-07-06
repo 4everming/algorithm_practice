@@ -122,6 +122,24 @@ public class TreeOps {
 		
 	}
 	
+	//invert tree   recursion
+	public TreeNode invertTree(TreeNode tree) {
+		if(tree == null) {
+			return null;
+		}
+		
+		TreeNode tmpNode = tree.left;
+		tree.left = tree.right;
+		tree.right = tmpNode;
+		
+		invertTree(tree.left);
+		invertTree(tree.right);
+		
+		return tree;
+	}
+	
+	
+	//invert tree  non-recursion  like visit by level
 	
 	//tree width
 	
@@ -133,8 +151,10 @@ public class TreeOps {
 		
 		System.out.println("depth:" + depth);
 		
-		System.out.println("Pre Visit Tree:");
-		treeop.preVisit(t);
+//		System.out.println("Pre Visit Tree:");
+//		treeop.preVisit(t);
+		
+		treeop.invertTree(t);
 		
 		System.out.println("Visit Tree by level: ");
 		treeop.levelVisit(t);
