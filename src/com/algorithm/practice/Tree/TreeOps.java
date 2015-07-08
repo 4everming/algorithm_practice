@@ -69,6 +69,35 @@ public class TreeOps {
 		
 	}
 	
+	public int treeWidth(TreeNode tree) {
+		if(tree == null) {
+			return 0;
+		}
+		
+		LinkedBlockingQueue<TreeNode> queue = new LinkedBlockingQueue<TreeNode>();
+		queue.add(tree);
+		int maxWidth = 1;
+		int levelSize = 1;
+		while(queue.size()>0) {
+			levelSize = queue.size();
+			while(levelSize>0) {
+				TreeNode t = queue.remove();
+				levelSize--;
+				if(t.left!=null) {
+					queue.add(t.left);
+				}
+				if(t.right!=null) {
+					queue.add(t.right);
+				}
+			}
+			maxWidth = Math.max(maxWidth, queue.size());  //queue.size is next level count.  maxWidth is max width util now.
+		}
+		
+		return maxWidth;
+		
+	}
+	
+	
 	
 	//first root   recursion
 	
@@ -203,7 +232,8 @@ public class TreeOps {
 	
 	//invert tree  non-recursion  like visit by level
 	
-	//tree width
+	
+	
 	
 
 	public static void main(String[] args) {
@@ -229,6 +259,7 @@ public class TreeOps {
 //		System.out.println("========================");
 //		treeop.postVisit2(t);
 		
+		treeop.treeWidth(t);
 		return ;
 	}
 }
