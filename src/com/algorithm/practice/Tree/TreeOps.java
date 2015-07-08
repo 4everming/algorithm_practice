@@ -2,6 +2,7 @@ package com.algorithm.practice.Tree;
 import com.algorithm.practice.Tree.TreeNode;
 
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.Stack;
 
 public class TreeOps {
 	
@@ -53,6 +54,10 @@ public class TreeOps {
 	}
 	
 	
+	public void visit(TreeNode tree) {
+		System.out.println("Visit " + tree);
+	}
+	
 	//recursion
 	public int treeLength(TreeNode tree) {
 		if(tree == null) {
@@ -71,7 +76,7 @@ public class TreeOps {
 		if(tree == null) {
 			return ;
 		}
-		System.out.println("Visit " + tree);
+		visit(tree);
 		preVisit(tree.left);
 		preVisit(tree.right);
 	}
@@ -81,9 +86,9 @@ public class TreeOps {
 		if(tree == null) {
 			return ;
 		}
-		preVisit(tree.left);
-		System.out.println("Visit " + tree);
-		preVisit(tree.right);
+		inVisit(tree.left);
+		visit(tree);
+		inVisit(tree.right);
 	}
 	
 	//last root recursion
@@ -91,13 +96,70 @@ public class TreeOps {
 		if(tree == null) {
 			return ;
 		}
-		preVisit(tree.left);
-		preVisit(tree.right);
-		System.out.println("Visit " + tree);
+		postVisit(tree.left);
+		postVisit(tree.right);
+		visit(tree);
 	}
 	
-	//TODO:
 	//no recursion visit
+	public void preVisit2(TreeNode tree) {
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		TreeNode itr = tree;
+		stack.push(itr);
+		while(itr!=null && !stack.empty()) {
+			itr = stack.pop();
+			visit(itr);
+			if(itr.right!=null) {
+				stack.push(itr.right);
+			}
+			if(itr.left!=null) {
+				stack.push(itr.left);
+			}
+		}
+	}
+	
+	
+	public void inVisit2(TreeNode tree) {
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		TreeNode itr = tree;
+		stack.push(itr);
+		while(itr!=null && !stack.empty()) {
+			itr = stack.pop();
+			while(itr!=null) { //move to the most left leaf
+				stack.push(itr);
+				itr = itr.left;
+			}
+			
+			if(!stack.empty()) {
+				itr = stack.pop();
+				visit(itr);
+				stack.push(itr.right);
+			}
+		}
+	}
+	
+	public void postVisit2(TreeNode tree) {
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		TreeNode itr = tree;
+		stack.push(itr);
+		while(itr!=null && !stack.empty()) {
+			itr = stack.pop();
+			while(itr!=null) { //move to the most left leaf
+				if(itr.left!=null) {
+					stack.push(itr);
+				}
+				itr = itr.left;
+			}
+			
+			
+			if(!stack.empty()) {
+				itr = stack.peek();
+				visit(itr);
+				stack.push(itr.right);
+			}
+		}
+	}
+	
 	
 	//by level visit
 	public void levelVisit(TreeNode tree) {
@@ -110,7 +172,7 @@ public class TreeOps {
 		}
 		while(!queue.isEmpty()) {
 			TreeNode t = queue.remove();
-			System.out.println("Visit " + t);
+			visit(t);
 			if(t.left != null) {
 				queue.add(t.left);
 			}
@@ -147,18 +209,25 @@ public class TreeOps {
 	public static void main(String[] args) {
 		TreeOps treeop = new TreeOps();
 		TreeNode t = treeop.buildTree();
-		int depth = treeop.treeLength(t);
+//		int depth = treeop.treeLength(t);
+//		System.out.println("depth:" + depth);
 		
-		System.out.println("depth:" + depth);
+//		treeop.invertTree(t);
 		
-//		System.out.println("Pre Visit Tree:");
+//		System.out.println("Visit Tree by level: ");
+//		treeop.levelVisit(t);
+		
+		System.out.println("Visit Tree: ");
 //		treeop.preVisit(t);
+//		treeop.preVisit2(t);
 		
-		treeop.invertTree(t);
+		treeop.inVisit(t);
+		System.out.println("========================");
+		treeop.inVisit2(t);
 		
-		System.out.println("Visit Tree by level: ");
-		treeop.levelVisit(t);
-		
+//		treeop.postVisit(t);
+//		System.out.println("========================");
+//		treeop.postVisit2(t);
 		
 		return ;
 	}
