@@ -17,25 +17,50 @@ public class LinkedOps {
 		return node1;
 	}
 	
-	private LinkedNode reverseLinkedList(LinkedNode list) {
-		if(list != null) {
-			LinkedNode link = list.next;
-			if(link!=null) {
-				reverseLinkedList(link);
-				link.next = list;
-			}
+	private void visitLinkedList(LinkedNode list) {
+		while(list!=null) {
+			System.out.println("visit " + list);
+			list = list.next;
 		}
-		
-		
-		
-		return list;
 	}
 	
+//	private LinkedNode reverseLinkedList(LinkedNode list) {
+//		if(list != null) {
+//			LinkedNode link = list.next;
+//			if(link!=null) {
+//				reverseLinkedList(link);
+//				link.next = list;
+//			}
+//			
+//		}
+//		
+//		return list;
+//	}
+//	
+	//no recursion
+	private LinkedNode reverseLinkedList(LinkedNode list) {
+		LinkedNode pre = null;
+		LinkedNode head = list;
+		LinkedNode next = list.next;
+		
+		while(head!=null) {   //每次迭代，由head指向pre。然后pre head next顺序后移一位。 注意终止条件
+			head.next = pre;
+			pre = head;
+			head = next;
+			if(head!=null)
+				next = head.next;
+		}
+		
+	
+		
+		return pre; //终止状态时 pre指向了头
+	}
 	
 	public static void main(String[] args) {
 		LinkedOps op = new LinkedOps();
 		LinkedNode li = op.buildLinkedList();
-		op.reverseLinkedList(li);
+		li = op.reverseLinkedList(li);
+		op.visitLinkedList(li);
 		
 		
 	}
