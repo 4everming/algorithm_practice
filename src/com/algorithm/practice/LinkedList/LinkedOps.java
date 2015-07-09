@@ -41,7 +41,9 @@ public class LinkedOps {
 	private LinkedNode reverseLinkedList(LinkedNode list) {
 		LinkedNode pre = null;
 		LinkedNode head = list;
-		LinkedNode next = list.next;
+		LinkedNode next = null;
+		if(list!=null)
+			next = list.next;
 		
 		while(head!=null) {   //每次迭代，由head指向pre。然后pre head next顺序后移一位。 注意终止条件
 			head.next = pre;

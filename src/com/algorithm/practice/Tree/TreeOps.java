@@ -2,6 +2,7 @@ package com.algorithm.practice.Tree;
 import com.algorithm.practice.Tree.TreeNode;
 
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.ArrayDeque;
 import java.util.Stack;
 
 public class TreeOps {
@@ -222,6 +223,7 @@ public class TreeOps {
 	
 	//invert tree   recursion
 	public TreeNode invertTree(TreeNode tree) {
+		
 		if(tree == null) {
 			return null;
 		}
@@ -265,6 +267,7 @@ public class TreeOps {
 		treeop.postVisit(t);
 		System.out.println("========================");
 		treeop.postVisit2(t);
+		
 		
 //		treeop.treeWidth(t);
 		return ;
