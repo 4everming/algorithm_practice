@@ -169,24 +169,31 @@ public class TreeOps {
 	
 	public void postVisit2(TreeNode tree) {
 		Stack<TreeNode> stack = new Stack<TreeNode>();
-		TreeNode itr = tree;
-		stack.push(itr);
-		while(itr!=null && !stack.empty()) {
-			itr = stack.pop();
-			while(itr!=null) { //move to the most left leaf
-				if(itr.left!=null) {
-					stack.push(itr);
-				}
-				itr = itr.left;
+		Stack<TreeNode> visitStack = new Stack<TreeNode>();
+		if(tree!=null) {
+			stack.push(tree);
+		}
+		while(!stack.empty()) {
+			TreeNode t = stack.pop();
+			visitStack.push(t);
+			
+			//The earlier put in stack, the later out of stack
+			//Then the later put in visit stack, the earlier out of visitStack to visit
+			
+			//same to use 2 stacks to implement a queue
+			if(t.left!=null) {
+				stack.push(t.left);
 			}
 			
-			
-			if(!stack.empty()) {
-				itr = stack.peek();
-				visit(itr);
-				stack.push(itr.right);
+			if(t.right!=null) {
+				stack.push(t.right);   
 			}
 		}
+		
+		while(!visitStack.empty()) {
+			visit(visitStack.pop());
+		}
+		
 	}
 	
 	
@@ -251,15 +258,15 @@ public class TreeOps {
 //		treeop.preVisit(t);
 //		treeop.preVisit2(t);
 		
-		treeop.inVisit(t);
-		System.out.println("========================");
-		treeop.inVisit2(t);
-		
-//		treeop.postVisit(t);
+//		treeop.inVisit(t);
 //		System.out.println("========================");
-//		treeop.postVisit2(t);
+//		treeop.inVisit2(t);
 		
-		treeop.treeWidth(t);
+		treeop.postVisit(t);
+		System.out.println("========================");
+		treeop.postVisit2(t);
+		
+//		treeop.treeWidth(t);
 		return ;
 	}
 }
