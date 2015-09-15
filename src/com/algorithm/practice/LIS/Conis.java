@@ -4,7 +4,7 @@ package com.algorithm.practice.LIS;
  * Created by zhaorenming on 2015/9/14.
  */
 public class Conis {
-
+    //中文test
 
     public static void main(String[] args) {
         int[] coinType = {1, 3, 5}; //coin value 1, 3, 5
