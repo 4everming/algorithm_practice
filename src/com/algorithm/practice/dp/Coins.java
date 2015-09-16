@@ -3,7 +3,7 @@ package com.algorithm.practice.dp;
 /**
  * Created by zhaorenming on 2015/9/14.
  */
-public class Conis {
+public class Coins {
     //中文test
 
     public static void main(String[] args) {
