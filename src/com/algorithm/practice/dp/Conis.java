@@ -1,4 +1,4 @@
-package com.algorithm.practice.LIS;
+package com.algorithm.practice.dp;
 
 /**
  * Created by zhaorenming on 2015/9/14.
@@ -10,13 +10,13 @@ public class Conis {
         int[] coinType = {1, 3, 5}; //coin value 1, 3, 5
         int total = 11;  //total money
 
-        int[] dp = new int[coinType.length+1];
+        int[] dp = new int[total+1];
 
         //initial dp[] to max value
         for (int i=0;i<total;i++) {
             dp[i] = 999;
         }
-        //0 way to get 0 money
+        //获取总数为0的硬币有0种拿法
         dp[0] = 0;
 
         for (int i=1;i<=total;i++) {
@@ -30,7 +30,7 @@ public class Conis {
                     minTemp = dp[ i-nowCoinVal ] + 1;
                 }
             }
-            dp[i] = minTemp;
+            dp[i] = minTemp; //dp[i]取最小的
         }
         System.out.println("The dp count is: " + dp[dp.length-1]);
 
